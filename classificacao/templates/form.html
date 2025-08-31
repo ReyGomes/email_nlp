@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Classificação de Emails</title>
+  <style>
+    .notification {
+      display: none;
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Enviar Email</h1>
+  <div id="notification" class="notification"></div>
+  <form id="emailForm" method="post">
+    {% csrf_token %}
+    <label for="assunto">Assunto:</label><br>
+    <input type="text" name="assunto" id="assunto"><br>
+    <label for="corpo">Corpo da mensagem:</label><br>
+    <textarea name="corpo" id="corpo" rows="5" cols="20" maxlength="1000"></textarea><br>
+    <span id="charCount">0/1000 caracteres</span><br>
+    <button type="submit">Enviar</button>
+  </form>
+ 
+  <script>
+    const corpo = document.getElementById('corpo');
+    const charCount = document.getElementById('charCount');
+    corpo.addEventListener('input', function() {
+    charCount.textContent = `${corpo.value.length}/1000 caracteres`;
+  });
+    document.getElementById('emailForm').onsubmit = function(e) {
+      e.preventDefault();
+      fetch('', {
+        method: 'POST',
+        body: new FormData(this),
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          document.getElementById('notification').textContent = 'Email enviado com sucesso!';
+          document.getElementById('notification').style.display = 'block';
+          this.reset();
+        } else {
+          document.getElementById('notification').textContent = 'Erro ao enviar email.';
+          document.getElementById('notification').style.display = 'block';
+        }
+      });
+    };
+  </script>
+</body>
+</html>

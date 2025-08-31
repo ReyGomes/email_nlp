@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lista de Emails</title>
+</head>
+<body>
+  <h1>Emails Relevantes</h1>
+  <div id="Produtivos">
+  <ul>
+    {% for email in emails_relevantes %}
+      <li><strong>Assunto: {{ email.assunto }}</strong><br>Email: {{ email.corpo|truncatechars:50 }}</li>
+    {% empty %}
+      <li>Nenhum email relevante ainda.</li>
+    {% endfor %}
+  </ul>
+    </div>
+    <div id="Improdutivos">
+  <h1>Emails Sem Relevância</h1>
+  <ul>
+    {% for email in emails_nao_relevantes %}
+      <li><strong>Assunto: {{ email.assunto }}</strong><br>Email: {{ email.corpo|truncatechars:50 }}</li>
+    {% empty %}
+      <li>Nenhum email sem relevância ainda.</li>
+    {% endfor %}
+  </ul>
+    </div>
+</body>
+</html>

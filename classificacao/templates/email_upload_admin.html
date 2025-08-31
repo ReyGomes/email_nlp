@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload de Email - Admin</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 40px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .form-group { 
+            margin-bottom: 20px; 
+        }
+        label { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: bold;
+            color: #555;
+        }
+        input, textarea { 
+            width: 100%; 
+            padding: 12px; 
+            border: 2px solid #ddd; 
+            border-radius: 6px; 
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        input:focus, textarea:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+        button { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; 
+            padding: 15px 30px; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            transition: transform 0.2s;
+            margin-bottom: 20px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .admin-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .admin-links a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .admin-links a:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📧 Upload de Email - Área Admin</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="id_assunto">Assunto do Email:</label>
+                <input type="text" name="assunto" id="id_assunto" required placeholder="Digite o assunto do email">
+            </div>
+            
+            <div class="form-group">
+                <label for="id_texto">Mensagem:</label>
+                <textarea name="texto" id="id_texto" rows="5" required placeholder="Digite o conteúdo do email aqui..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="id_arquivo">Ou envie um arquivo:</label>
+                <input type="file" name="arquivo" id="id_arquivo" accept=".txt,.pdf">
+            </div>
+            
+            <button type="submit">🔍 Classificar Email</button>
+        </form>
+
+        <div class="admin-links">
+            <a href="{% url 'classificacao_admin:admin_email_list' %}">📋 Ver Lista de Emails</a>
+            <a href="{% url 'admin:index' %}">⚙️ Painel Admin Django</a>
+            <a href="{% url 'classificacao:email_upload' %}">🌐 Versão Pública</a>
+        </div>
+    </div>
+</body>
+</html>
